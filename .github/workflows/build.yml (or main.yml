@@ -1,0 +1,35 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main # Or your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17' # Or your required Java version
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Unzip source
+        run: unzip andors_trail_for_build.zip
+
+      - name: Build APK with Gradle
+        run: cd andors-trail-wiki-master && ./gradlew assembleDebug #or assembleRelease
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: andors-trail-apk
+          path: andors-trail-wiki-master/app/build/outputs/apk/debug/app-debug.apk #or release version
