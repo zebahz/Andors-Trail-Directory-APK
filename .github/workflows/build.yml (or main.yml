@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Setup JDK
         uses: actions/setup-java@v3
@@ -29,7 +29,7 @@ jobs:
         run: cd andors-trail-wiki-master && ./gradlew assembleDebug #or assembleRelease
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: andors-trail-apk
           path: andors-trail-wiki-master/app/build/outputs/apk/debug/app-debug.apk #or release version
